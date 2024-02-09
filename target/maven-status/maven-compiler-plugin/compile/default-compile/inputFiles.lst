@@ -1,3 +1,4 @@
+C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\BusinessObject\RolUsuario.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\Presentacion\panelProductos.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\TransferObject\ClienteDTO.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\TransferObject\UsuarioDTO.java
@@ -5,13 +6,17 @@ C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\Da
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\BusinessObject\Usuario.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\TransferObject\RolUsuarioDTO.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\main\appgestionclientes\AppGestionClientes.java
+C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\BusinessObject\Cliente.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\DataAccessObject\UsuarioDAO.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\Presentacion\frameAdministrador.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\DataAccessObject\RolUsuarioDAO.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\Swing\Containers\PanelShadow.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\Presentacion\frameVendedor.java
+C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\Presentacion\plCliente.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\DataAccessObject\EmpleadoDAO.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\TransferObject\EmpleadoDTO.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\Presentacion\frameLogin.java
+C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\DataAccessObject\ClienteDAO.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\DataSource\Conexion.java
 C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\TransferObject\ProductoDTO.java
+C:\Users\KEVIN EP\Documents\NetBeansProjects\appGestionClientes\src\main\java\BusinessObject\Empleado.java
