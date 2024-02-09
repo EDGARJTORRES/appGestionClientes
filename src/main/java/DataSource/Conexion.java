@@ -28,7 +28,7 @@ public class Conexion {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null,
                     """
                     Ha ocurrido un error al realizar la conexi\u00f3n al servidor de base de datos.
@@ -38,6 +38,7 @@ public class Conexion {
                     
                     """ + e
                     + "", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
             conexion = null;
             System.exit(0);
         }
