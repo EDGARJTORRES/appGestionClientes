@@ -230,7 +230,9 @@ public class frameLogin extends javax.swing.JFrame {
                     this.dispose();
                 }
                 case "Vendedor" -> {
-                    frameVendedor frameVendedor = new frameVendedor();
+                    usuarioDTO = oUsuario.loginUsuario(userName, password);
+
+                    frameVendedor frameVendedor = new frameVendedor(usuarioDTO);
                     frameVendedor.setVisible(true);
                     this.dispose();
                 }

@@ -1,8 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Presentacion;
+
+import BusinessObject.Empleado;
+import BusinessObject.RolUsuario;
+import BusinessObject.Usuario;
+import DataAccessObject.EmpleadoDAO;
+import DataAccessObject.RolUsuarioDAO;
+import DataAccessObject.UsuarioDAO;
+import TransferObject.EmpleadoDTO;
+import TransferObject.RolUsuarioDTO;
+import TransferObject.UsuarioDTO;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -10,11 +18,55 @@ package Presentacion;
  */
 public class frameVendedor extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frameVendedor
-     */
-    public frameVendedor() {
+    private UsuarioDTO dtoUsuario;
+    private EmpleadoDTO dtoEmpleado;
+    private RolUsuarioDTO dtoRolUsuario;
+    private UsuarioDAO daoUsuario;
+    private EmpleadoDAO daoEmpleado;
+    private RolUsuarioDAO daoRolEmpleado;
+    private Usuario oUsuario;
+    private Empleado oEmpleado;
+    private RolUsuario oRolUsuario;
+    private int codUsuario, codRolUsuario;
+    private String codEmpleado;
+
+    public frameVendedor(UsuarioDTO dtoUsuario) {
+        daoEmpleado = new EmpleadoDAO();
+        daoRolEmpleado = new RolUsuarioDAO();
+        daoUsuario = new UsuarioDAO();
+        codEmpleado = dtoUsuario.getCodEmpleado();
+        codUsuario = dtoUsuario.getCodUsuario();
+        codRolUsuario = dtoUsuario.getCodRolUsuario();
         initComponents();
+        inicarFrameVendedor();
+    }
+
+    private void inicarFrameVendedor() {
+        this.setLocationRelativeTo(null);
+        this.setTitle("Vendedor - Sistema de Gestión de Clientes");
+        oEmpleado = new Empleado();
+        oRolUsuario = new RolUsuario();
+        oUsuario = new Usuario();
+
+        dtoEmpleado = oEmpleado.buscar(codEmpleado);
+        dtoRolUsuario = oRolUsuario.buscar(codRolUsuario);
+        dtoUsuario = oUsuario.buscar(codUsuario);
+
+        labelNombresEmpleado.setText(dtoEmpleado.getNombres() + " " + dtoEmpleado.getApellidoPaterno());
+        labelRolUsuario.setText(dtoRolUsuario.getNombreRol());
+    }
+
+    private void mostrarPanel(JPanel jPanel) {
+        jPanel.setSize(1024, 700);
+        jPanel.setLocation(0, 0);
+        contenidoJPanel.removeAll();
+        contenidoJPanel.add(jPanel, BorderLayout.CENTER);
+        contenidoJPanel.revalidate();
+        contenidoJPanel.repaint();
+    }
+
+    public void seleccionarBoton(boolean botonProductos) {
+        btnProductos.setSelected(botonProductos);
     }
 
     /**
@@ -26,44 +78,190 @@ public class frameVendedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        labelRolUsuario = new javax.swing.JLabel();
+        labelNombresEmpleado = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnPerfil = new javax.swing.JButton();
+        btnProductos = new javax.swing.JButton();
+        btnProductos1 = new javax.swing.JButton();
+        btnClientes = new javax.swing.JButton();
+        btnProductos5 = new javax.swing.JButton();
+        contenidoJPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("VENDEDOR");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(1, 75, 160));
+
+        labelRolUsuario.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        labelRolUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        labelRolUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelRolUsuario.setText("ROL");
+
+        labelNombresEmpleado.setFont(new java.awt.Font("sansserif", 1, 15)); // NOI18N
+        labelNombresEmpleado.setForeground(new java.awt.Color(237, 237, 237));
+        labelNombresEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelNombresEmpleado.setText("Ful Name");
+
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(200, 200, 200));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Hola");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoAbasto187x88.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelNombresEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(labelRolUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)))
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelNombresEmpleado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelRolUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 242, -1));
+
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCerrarSesion.png"))); // NOI18N
+        btnCerrarSesion.setContentAreaFilled(false);
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCerrarSesionHover.png"))); // NOI18N
+        jPanel1.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 218, 40));
+
+        btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnPerfil.png"))); // NOI18N
+        btnPerfil.setContentAreaFilled(false);
+        btnPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPerfil.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnPerfilHover.png"))); // NOI18N
+        btnPerfil.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/btnPerfilSelected.png"))); // NOI18N
+        jPanel1.add(btnPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 100, 90));
+
+        btnProductos.setText("Productos");
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 100, 90));
+
+        btnProductos1.setText("Reportes");
+        btnProductos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductos1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnProductos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 100, 90));
+
+        btnClientes.setText("Clientes");
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 100, 90));
+
+        btnProductos5.setText("Ventas");
+        btnProductos5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductos5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnProductos5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 100, 90));
+
+        javax.swing.GroupLayout contenidoJPanelLayout = new javax.swing.GroupLayout(contenidoJPanel);
+        contenidoJPanel.setLayout(contenidoJPanelLayout);
+        contenidoJPanelLayout.setHorizontalGroup(
+            contenidoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1024, Short.MAX_VALUE)
+        );
+        contenidoJPanelLayout.setVerticalGroup(
+            contenidoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(contenidoJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addContainerGap(257, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(contenidoJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        panelProductos jpProductos = new panelProductos();
+        mostrarPanel(jpProductos);
+        seleccionarBoton(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void btnProductos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProductos1ActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        // TODO add your handling code here:
+        plCliente pCliente = new plCliente();
+        pCliente.setSize(750, 560);
+        pCliente.setLocation(0, 0);
+
+        contenidoJPanel.removeAll();
+        contenidoJPanel.add(pCliente, BorderLayout.CENTER);
+        contenidoJPanel.revalidate();
+        contenidoJPanel.repaint();
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnProductos5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductos5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProductos5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     //public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-   /*     
+    /* Set the Nimbus look and feel */
+ /*     
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        
-        /*try {
+     */
+ /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -79,18 +277,29 @@ public class frameVendedor extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(frameVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        */
-        //</editor-fold>
-
-     //   /* Create and display the form */
-     //   java.awt.EventQueue.invokeLater(new Runnable() {
-     //       public void run() {
+     */
+    //</editor-fold>
+    //   /* Create and display the form */
+    //   java.awt.EventQueue.invokeLater(new Runnable() {
+    //       public void run() {
     //            new frameVendedor().setVisible(true);
     //        }
     //    });
     //}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnClientes;
+    public javax.swing.JButton btnPerfil;
+    private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnProductos1;
+    private javax.swing.JButton btnProductos5;
+    private javax.swing.JPanel contenidoJPanel;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    public javax.swing.JLabel labelNombresEmpleado;
+    public javax.swing.JLabel labelRolUsuario;
     // End of variables declaration//GEN-END:variables
 }
