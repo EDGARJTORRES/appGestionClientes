@@ -22,6 +22,7 @@ public class plCliente extends javax.swing.JPanel {
     Cliente cliente;
     String ruccliente;
     String codcliente;
+    Integer estado = 0;
 
     /**
      * Creates new form plCliente
@@ -437,14 +438,26 @@ public class plCliente extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String mensaje = cliente.agregar(txtCodigo.getText(), txtRUC.getText(), txtApellido.getText(), txtNombre.getText(),
-                txtCelular.getText(), txtDireccion.getText(), txtDistrito.getText(), txtProvincia.getText());
-        JOptionPane.showMessageDialog(null, mensaje);
-        limpiarTabla();
-        listar();
-        limpiarCajas();
-        desbloquearBotones();
-        bloquearCajas();
+        String ruc = txtRUC.getText();
+        String apellido = txtApellido.getText();
+        String nombre = txtNombre.getText();
+        String celular = txtCelular.getText();
+        String direccion = txtDireccion.getText();
+        String distrito = txtDistrito.getText();
+        String provincia = txtProvincia.getText();
+        if (!(ruc.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || celular.isEmpty() || direccion.isEmpty() || distrito.isEmpty() || provincia.isEmpty())) {
+            String mensaje = cliente.agregar(txtCodigo.getText(), txtRUC.getText(), txtApellido.getText(), txtNombre.getText(),
+                    txtCelular.getText(), txtDireccion.getText(), txtDistrito.getText(), txtProvincia.getText());
+            JOptionPane.showMessageDialog(null, mensaje);
+            limpiarTabla();
+            listar();
+            limpiarCajas();
+            desbloquearBotones();
+            bloquearCajas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes completar todos los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
@@ -616,6 +629,7 @@ public class plCliente extends javax.swing.JPanel {
             mensaje = cliente.eliminar(codcliente);
             JOptionPane.showMessageDialog(null, mensaje);
         }
+        
         limpiarTabla();
         listar();
         //btnNuevoActionPerformed(evt);
@@ -624,48 +638,44 @@ public class plCliente extends javax.swing.JPanel {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         String mensaje = "";
-        Integer estado = 0;
-
+        
         int fila = tbClientes.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
-        } 
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
         else {
             estado += 1;
-            if (btnActualizar.getText().equals("Editar")) {
-                desbloquearCajas();
-                btnActualizar.setText("ACTUALIZAR");
-                btnNuevo.setEnabled(false);
-                btnGuardar.setEnabled(false);
-                btnEliminar.setEnabled(false);
-            }
-            
-            estado += 1;
-            
-            String ruc = txtRUC.getText();
-            String apellido = txtApellido.getText();
-            String nombre = txtNombre.getText();
-            String celular = txtCelular.getText();
-            String direccion = txtDireccion.getText();
-            String distrito = txtDistrito.getText();
-            String provincia = txtProvincia.getText();
-            
-            if (btnActualizar.getText().equals("Actualizar")){
-                if (ruc.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || celular.isEmpty() || direccion.isEmpty() || distrito.isEmpty() || provincia.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Debes completar todos los datos", "OJO", JOptionPane.ERROR_MESSAGE);
-                }
-                else {
-                    mensaje = cliente.actualizar(codcliente, txtRUC.getText(), txtApellido.getText(), txtNombre.getText(), txtCelular.getText(),
-                            txtDireccion.getText(), txtDistrito.getText(), txtProvincia.getText());
-                    JOptionPane.showMessageDialog(null, mensaje);
-
-                    limpiarTabla();
-                    listar();
+            if (estado == 1) {
                     desbloquearCajas();
-                    bloquearCajas();
-                }
-                
+                    btnActualizar.setText("ACTUALIZAR");
+                    btnNuevo.setEnabled(false);
+                    btnGuardar.setEnabled(false);
+                    btnEliminar.setEnabled(false);
             }
+            else if (estado == 2) {
+                    String ruc = txtRUC.getText();
+                    String apellido = txtApellido.getText();
+                    String nombre = txtNombre.getText();
+                    String celular = txtCelular.getText();
+                    String direccion = txtDireccion.getText();
+                    String distrito = txtDistrito.getText();
+                    String provincia = txtProvincia.getText();
+                    if (!(ruc.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || celular.isEmpty() || direccion.isEmpty() || distrito.isEmpty() || provincia.isEmpty())) {
+                        mensaje = cliente.actualizar(codcliente, txtRUC.getText(), txtApellido.getText(), txtNombre.getText(), txtCelular.getText(),
+                                txtDireccion.getText(), txtDistrito.getText(), txtProvincia.getText());
+                        JOptionPane.showMessageDialog(null, mensaje);
+                        btnActualizar.setText("EDITAR");
+
+                        limpiarTabla();
+                        listar();
+                        desbloquearBotones();
+                        bloquearCajas();
+                        //estado = 1
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Debes completar todos los datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                    estado = 0;
+            } 
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
