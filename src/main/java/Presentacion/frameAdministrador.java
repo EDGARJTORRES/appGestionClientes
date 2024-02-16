@@ -305,6 +305,9 @@ public class frameAdministrador extends javax.swing.JFrame {
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         // TODO add your handling code here:
+        plVenta plventa = new plVenta();
+        mostrarPanel(plventa);
+        seleccionarBoton(false, false, false, false, true, false, false);
     }//GEN-LAST:event_btnVentasActionPerformed
 
     /**

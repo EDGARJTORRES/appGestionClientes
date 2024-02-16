@@ -6,6 +6,7 @@ Presentacion\frameVendedor$3.class
 BusinessObject\Empleado.class
 Presentacion\panelProductos$1.class
 Presentacion\plCliente$7.class
+Presentacion\plVenta$6.class
 main\appgestionclientes\AppGestionClientes.class
 Presentacion\panelFormularioUsuario.class
 Presentacion\frameLogin$1.class
@@ -19,6 +20,7 @@ Presentacion\panelFormularioEmpleado$4.class
 Presentacion\panelFormularioEmpleado.class
 Presentacion\plCliente$2.class
 Presentacion\panelUsuarios$3.class
+Presentacion\plVenta.class
 TransferObject\UsuarioDTO.class
 Presentacion\panelEmpleado$1.class
 Presentacion\panelFormularioEmpleado$3.class
@@ -30,10 +32,12 @@ Utilities\Controles.class
 Presentacion\frameAdministrador.class
 Presentacion\frameVendedor$4.class
 Presentacion\panelUsuarios$4.class
+Presentacion\plVenta$2.class
 DataAccessObject\EmpleadoDAO.class
 Presentacion\frameAdministrador$5.class
 Presentacion\frameLogin.class
 Presentacion\frameVendedor$1.class
+Presentacion\plVenta$1.class
 Presentacion\frameVendedor$2.class
 Presentacion\panelEmpleado$3.class
 Presentacion\panelFormularioEmpleado$1.class
@@ -45,15 +49,21 @@ Presentacion\panelEmpleado$2.class
 TransferObject\EmpleadoDTO.class
 Presentacion\plCliente$4.class
 BusinessObject\Usuario.class
+Presentacion\plBoleta$2.class
+Presentacion\plVenta$3.class
 Presentacion\plCliente$13.class
 Presentacion\panelEmpleado.class
 Presentacion\frameVendedor.class
 BusinessObject\RolUsuario.class
+Presentacion\plVenta$4.class
 BusinessObject\Cliente.class
+Presentacion\plBoleta.class
 Presentacion\plCliente$9.class
+Presentacion\plBoleta$1.class
 Presentacion\plCliente.class
 Presentacion\plCliente$11.class
 Presentacion\plCliente$6.class
+Presentacion\plVenta$5.class
 Presentacion\plCliente$3.class
 Utilities\DisabledItemRenderer.class
 Presentacion\panelUsuarios$1.class
@@ -65,3 +75,4 @@ DataAccessObject\UsuarioDAO.class
 Presentacion\panelUsuarios.class
 Presentacion\plCliente$10.class
 TransferObject\ProductoDTO.class
+Presentacion\plVenta$7.class
