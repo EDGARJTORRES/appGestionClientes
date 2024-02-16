@@ -1,5 +1,7 @@
 package TransferObject;
 
+import java.util.Objects;
+
 /**
  *
  * @author KEVIN EP
@@ -20,6 +22,10 @@ public class RolUsuarioDTO {
         this.NombreRol = NombreRol;
     }
 
+    public RolUsuarioDTO(String NombreRol) {
+        this.NombreRol = NombreRol;
+    }
+
     public int getCodRolUsuario() {
         return CodRolUsuario;
     }
@@ -35,4 +41,10 @@ public class RolUsuarioDTO {
     public void setNombreRol(String NombreRol) {
         this.NombreRol = NombreRol;
     }
+
+    @Override
+    public String toString() {
+        return NombreRol;
+    }
+
 }

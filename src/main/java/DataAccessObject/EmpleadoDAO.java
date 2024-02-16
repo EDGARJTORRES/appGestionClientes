@@ -5,6 +5,7 @@ import TransferObject.EmpleadoDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,24 +17,75 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO>{
     ResultSet rs;
     Conexion oConexion;
 
+    private final String INSERT = "INSERT INTO Empleado (CodEmpleado, DNIEmpleado, NombreEmpleado, ApellidoPaternoEmpleado, ApellidoMaternoEmpleado, CelularEmpleado) VALUES (?,?,?,?,?,?)";
+    private final String UPDATE = "UPDATE Empleado SET DNIEmpleado=?, NombreEmpleado=?, ApellidoPaternoEmpleado=?, ApellidoMaternoEmpleado=?, CelularEmpleado=? WHERE CodEmpleado = ?";
+    private final String DELETE = "DELETE FROM Empleado WHERE CodEmpleado = ?";
+    private final String SELECT_ONE = "SELECT * FROM Empleado WHERE CodEmpleado = ?";
+    private final String SELECT_ALL = "SELECT * FROM Empleado";
 
     public EmpleadoDAO() {
         oConexion = new Conexion();
     }
 
     @Override
-    public boolean agregar(EmpleadoDTO tdtoEmpleado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean agregar(EmpleadoDTO dtoEmpleado) {
+        int respuesta = 0;
+        try {
+            ps = oConexion.conectar().prepareStatement(INSERT);
+            ps.setString(1, dtoEmpleado.getCodEmpleado());
+            ps.setString(2, dtoEmpleado.getDNIEmpleado());
+            ps.setString(3, dtoEmpleado.getNombres());
+            ps.setString(4, dtoEmpleado.getApellidoPaterno());
+            ps.setString(5, dtoEmpleado.getApellidoMaterno());
+            ps.setString(6, dtoEmpleado.getCelular());
+            respuesta = ps.executeUpdate();
+            return respuesta == 1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        } finally {
+            oConexion.desconectar();
+        }
     }
 
     @Override
     public boolean actualizar(EmpleadoDTO dtoEmpleado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int respuesta = 0;
+        try {
+            ps = oConexion.conectar().prepareStatement(UPDATE);
+            ps.setString(1, dtoEmpleado.getDNIEmpleado());
+            ps.setString(2, dtoEmpleado.getNombres());
+            ps.setString(3, dtoEmpleado.getApellidoPaterno());
+            ps.setString(4, dtoEmpleado.getApellidoMaterno());
+            ps.setString(5, dtoEmpleado.getCelular());
+            ps.setString(6, dtoEmpleado.getCodEmpleado());
+            respuesta = ps.executeUpdate();
+            return  respuesta == 1;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        } finally {
+            oConexion.desconectar();
+        }
     }
 
     @Override
     public boolean eliminar(EmpleadoDTO dtoEmpleado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int r = 0;
+        
+        try {
+            ps = oConexion.conectar().prepareStatement(DELETE);
+            ps.setString(1, dtoEmpleado.getCodEmpleado());
+            r = ps.executeUpdate();
+            return r == 1;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        finally {
+            oConexion.desconectar();
+        }
     }
 
     @Override
@@ -41,7 +93,7 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO>{
         boolean encontrado = false;
         
         try {
-            ps = oConexion.conectar().prepareStatement("SELECT * FROM Empleado WHERE CodEmpleado = ?");
+            ps = oConexion.conectar().prepareStatement(SELECT_ONE);
             ps.setString(1, dtoEmpleado.getCodEmpleado());
             rs = ps.executeQuery();
             while (rs.next()){
@@ -71,7 +123,76 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO>{
 
     @Override
     public List<EmpleadoDTO> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<EmpleadoDTO> lista = new ArrayList<>();
+        try {
+            ps = oConexion.conectar().prepareStatement(SELECT_ALL);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                EmpleadoDTO dtoEmpleado = new EmpleadoDTO();
+                dtoEmpleado.setCodEmpleado(rs.getString(1));
+                dtoEmpleado.setDNIEmpleado(rs.getString(2));
+                dtoEmpleado.setNombres(rs.getString(3));
+                dtoEmpleado.setApellidoPaterno(rs.getString(4));
+                dtoEmpleado.setApellidoMaterno(rs.getString(5));
+                dtoEmpleado.setCelular(rs.getString(6));
+                
+                lista.add(dtoEmpleado);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            oConexion.desconectar();
+        }
+        return lista;
     }
 
+    
+    public boolean buscarDNI(String dni) {
+        try {
+            ps = oConexion.conectar().prepareStatement("SELECT COUNT(*) FROM Empleado WHERE DNIEmpleado = ?");
+            ps.setString(1, dni);
+            rs = ps.executeQuery();
+             if (rs.next()) {
+                int cantidad = rs.getInt(1); // Obtener el valor de la primera columna (COUNT)
+                if (cantidad == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+            return false;
+        } finally {
+            oConexion.desconectar();
+        }
+        return false;
+    }
+    
+    public boolean buscarCodigo(String codigo) {
+        try {
+            ps = oConexion.conectar().prepareStatement("SELECT COUNT(*) FROM Empleado WHERE CodEmpleado = ?");
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+             if (rs.next()) {
+                int cantidad = rs.getInt(1); // Obtener el valor de la primera columna (COUNT)
+                if (cantidad == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+            return false;
+        } finally {
+            oConexion.desconectar();
+        }
+        return false;
+    }
 }

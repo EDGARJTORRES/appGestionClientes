@@ -38,6 +38,15 @@ public class UsuarioDTO {
         this.CodEmpleado = CodEmpleado;
     }
 
+    public UsuarioDTO(String UserName, String Password, String Estado, int CodRolUsuario, String CodEmpleado) {
+        this.UserName = UserName;
+        this.Password = Password;
+        this.Estado = Estado;
+        this.CodRolUsuario = CodRolUsuario;
+        this.CodEmpleado = CodEmpleado;
+    }
+
+
     public int getCodUsuario() {
         return CodUsuario;
     }

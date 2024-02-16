@@ -49,7 +49,7 @@ public class Conexion {
         if (conexion != null) {
             try {
                 conexion.close();
-                System.out.println("Conexion terminada. \n Base de datos " + DATABASE + " desconectada.");
+                //System.out.println("Conexion terminada. \n Base de datos " + DATABASE + " desconectada.");
             } catch (SQLException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }

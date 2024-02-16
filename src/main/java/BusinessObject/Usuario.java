@@ -4,6 +4,7 @@ import DataAccessObject.RolUsuarioDAO;
 import DataAccessObject.UsuarioDAO;
 import TransferObject.RolUsuarioDTO;
 import TransferObject.UsuarioDTO;
+import java.util.List;
 
 /**
  *
@@ -27,14 +28,10 @@ public class Usuario {
 
         if (!usuarioDAO.buscarUsuario(new UsuarioDTO(userName))) {
             mensaje = "El usuario no existe en la base de datos";
-            System.out.println("Hola GitHub");
-
         } else if (!usuarioDAO.estadoUsuario(new UsuarioDTO(userName))) {
             mensaje = "El usuario está deshabilitado";
         } else if (usuarioDTO != null) {
             int codRolUsuario = usuarioDTO.getCodRolUsuario();
-            int codUsuario = usuarioDTO.getCodUsuario();
-            System.out.println(codUsuario);
             rolUsuarioDTO = rolUsuarioDAO.buscar(new RolUsuarioDTO(codRolUsuario));
             if (rolUsuarioDTO.getNombreRol().equals("Administrador")) {
                 mensaje = "Administrador";
@@ -55,12 +52,32 @@ public class Usuario {
         }
         return null;
     }
+    
+    // CRUD
+    public String agregar(String userName, String password, String estado, int codRolUsuario, String codEmpleado){
+        String mensaje;
+
+        usuarioDTO = new UsuarioDTO( userName, password, estado, codRolUsuario, codEmpleado);
+        if (usuarioDAO.agregar(usuarioDTO))
+            mensaje = "Usuario Generado Correctamente";
+        else
+            mensaje = "Registro no guardado";
+        return mensaje;
+    }
 
     public UsuarioDTO buscar(int codUsuario) {
         usuarioDTO = usuarioDAO.buscar(new UsuarioDTO(codUsuario));
 
         if (usuarioDTO != null) {
             return usuarioDTO;
+        }
+        return null;
+    }
+    
+    public List<UsuarioDTO>listar() {
+        if (usuarioDAO.listar() != null) {
+            List<UsuarioDTO> lista = usuarioDAO.listar();
+            return lista;
         }
         return null;
     }

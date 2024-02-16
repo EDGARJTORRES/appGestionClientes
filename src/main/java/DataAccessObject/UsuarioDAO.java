@@ -5,6 +5,7 @@ import TransferObject.UsuarioDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,18 +14,38 @@ import java.util.logging.Logger;
  *
  * @author KEVIN EP
  */
-public class UsuarioDAO implements ICrud<UsuarioDTO>{
+public class UsuarioDAO implements ICrud<UsuarioDTO> {
     PreparedStatement ps;
     ResultSet rs;
     Conexion oConexion;
+
+    private final String INSERT = "INSERT INTO Usuario (UserName, Password, Estado, CodRolUsuario, CodEmpleado) VALUES (?,?,?,?,?)";
     
+    private final String SELECT_ONE = "SELECT * FROM Usuario WHERE CodUsuario = ?";
+    private final String SELECT_ALL = "SELECT * FROM Usuario";
+
     public UsuarioDAO() {
         oConexion = new Conexion();
     }
 
     @Override
     public boolean agregar(UsuarioDTO dtoUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int respuesta = 0;
+        try {
+            ps = oConexion.conectar().prepareStatement(INSERT);
+            ps.setString(1, dtoUsuario.getUserName());
+            ps.setString(2, dtoUsuario.getPassword());
+            ps.setString(3, dtoUsuario.getEstado());
+            ps.setInt(4, dtoUsuario.getCodRolUsuario());
+            ps.setString(5, dtoUsuario.getCodEmpleado());
+            respuesta = ps.executeUpdate();
+            return respuesta == 1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        } finally {
+            oConexion.desconectar();
+        }
     }
 
     @Override
@@ -40,11 +61,11 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
     @Override
     public UsuarioDTO buscar(UsuarioDTO dtoUsuario) {
         boolean encontrado = false;
-        try {    
-            ps = oConexion.conectar().prepareStatement("SELECT * FROM Usuario WHERE CodUsuario = ?");
+        try {
+            ps = oConexion.conectar().prepareStatement(SELECT_ONE);
             ps.setInt(1, dtoUsuario.getCodUsuario());
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 dtoUsuario.setCodUsuario(rs.getInt(1));
                 dtoUsuario.setUserName(rs.getString(2));
                 dtoUsuario.setPassword(rs.getString(3));
@@ -53,7 +74,7 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
                 dtoUsuario.setCodEmpleado(rs.getString(6));
                 encontrado = true;
             }
-            
+
             if (encontrado) {
                 return dtoUsuario;
             } else {
@@ -70,11 +91,32 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
 
     @Override
     public List<UsuarioDTO> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<UsuarioDTO> lista = new ArrayList<>();
+        try {
+            ps = oConexion.conectar().prepareStatement(SELECT_ALL);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                UsuarioDTO dtoUsuario = new UsuarioDTO();
+                dtoUsuario.setCodUsuario(rs.getInt(1));
+                dtoUsuario.setUserName(rs.getString(2));
+                dtoUsuario.setPassword(rs.getString(3));
+                dtoUsuario.setEstado(rs.getString(4));
+                dtoUsuario.setCodRolUsuario(rs.getInt(5));
+                dtoUsuario.setCodEmpleado(rs.getString(6));
+                
+                lista.add(dtoUsuario);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            oConexion.desconectar();
+        }
+        return lista;
     }
-    
+
     public boolean buscarUsuario(UsuarioDTO dtoUsuario) {
-        try {    
+        try {
             ps = oConexion.conectar().prepareStatement("SELECT * FROM Usuario WHERE UserName = ?");
             ps.setString(1, dtoUsuario.getUserName());
             rs = ps.executeQuery();
@@ -87,7 +129,7 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
         }
         return false;
     }
-    
+
     public boolean estadoUsuario(UsuarioDTO dtoUsuario) {
         try {
             ps = oConexion.conectar().prepareStatement("SELECT * FROM Usuario WHERE UserName = ? AND Estado = 1");
@@ -102,7 +144,7 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
         }
         return false;
     }
-    
+
     public boolean verificaPassword(UsuarioDTO dtoUsuario) {
         try {
             ps = oConexion.conectar().prepareStatement("SELECT * FROM Usuario WHERE UserName = ? AND Password = ?");
@@ -118,15 +160,15 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
         }
         return false;
     }
-    
-    public UsuarioDTO login(UsuarioDTO dtoUsuario){
+
+    public UsuarioDTO login(UsuarioDTO dtoUsuario) {
         boolean encontrado = false;
         try {
             ps = oConexion.conectar().prepareStatement("SELECT * FROM Usuario WHERE UserName = ? AND Password = ?");
             ps.setString(1, dtoUsuario.getUserName());
             ps.setString(2, dtoUsuario.getPassword());
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 dtoUsuario.setCodUsuario(rs.getInt(1));
                 dtoUsuario.setUserName(rs.getString(2));
                 dtoUsuario.setPassword(rs.getString(3));
@@ -135,7 +177,7 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
                 dtoUsuario.setCodEmpleado(rs.getString(6));
                 encontrado = true;
             }
-            
+
             if (encontrado) {
                 return dtoUsuario;
             } else {
@@ -148,5 +190,29 @@ public class UsuarioDAO implements ICrud<UsuarioDTO>{
         } finally {
             oConexion.desconectar();
         }
+    }
+
+    public boolean buscarCodigoEmpleado(String codigoEmpleado) {
+        try {
+            ps = oConexion.conectar().prepareStatement("SELECT COUNT(*) FROM Usuario WHERE CodEmpleado = ?");
+            ps.setString(1, codigoEmpleado);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int cantidad = rs.getInt(1); // Obtener el valor de la primera columna (COUNT)
+                if (cantidad == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+            return false;
+        } finally {
+            oConexion.desconectar();
+        }
+        return false;
     }
 }

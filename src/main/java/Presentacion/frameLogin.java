@@ -1,7 +1,6 @@
 package Presentacion;
 
 import BusinessObject.Usuario;
-import DataAccessObject.UsuarioDAO;
 import TransferObject.UsuarioDTO;
 import com.formdev.flatlaf.FlatClientProperties;
 import javax.swing.JOptionPane;

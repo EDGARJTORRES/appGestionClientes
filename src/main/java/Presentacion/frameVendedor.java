@@ -84,12 +84,12 @@ public class frameVendedor extends javax.swing.JFrame {
         labelNombresEmpleado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
-        btnPerfil = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
-        btnProductos1 = new javax.swing.JButton();
+        btnVentas = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
-        btnProductos5 = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        btnPerfil = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         contenidoJPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -123,7 +123,7 @@ public class frameVendedor extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelNombresEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(labelNombresEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelRolUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -151,50 +151,66 @@ public class frameVendedor extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 242, -1));
 
-        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCerrarSesion.png"))); // NOI18N
-        btnCerrarSesion.setContentAreaFilled(false);
-        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCerrarSesion.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCerrarSesionHover.png"))); // NOI18N
-        jPanel1.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 218, 40));
-
-        btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnPerfil.png"))); // NOI18N
-        btnPerfil.setContentAreaFilled(false);
-        btnPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPerfil.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnPerfilHover.png"))); // NOI18N
-        btnPerfil.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/btnPerfilSelected.png"))); // NOI18N
-        jPanel1.add(btnPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 100, 90));
-
-        btnProductos.setText("Productos");
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnProductos.png"))); // NOI18N
+        btnProductos.setContentAreaFilled(false);
+        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProductos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnProductosHover.png"))); // NOI18N
+        btnProductos.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/btnProductosSelected.png"))); // NOI18N
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 100, 90));
+        jPanel1.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 100, 90));
 
-        btnProductos1.setText("Reportes");
-        btnProductos1.addActionListener(new java.awt.event.ActionListener() {
+        btnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnVentas.png"))); // NOI18N
+        btnVentas.setContentAreaFilled(false);
+        btnVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVentas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnVentasHover.png"))); // NOI18N
+        btnVentas.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/btnVentasSelected.png"))); // NOI18N
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProductos1ActionPerformed(evt);
+                btnVentasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnProductos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 100, 90));
+        jPanel1.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 100, 90));
 
-        btnClientes.setText("Clientes");
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnClientes.png"))); // NOI18N
+        btnClientes.setContentAreaFilled(false);
+        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClientes.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnClientesHover.png"))); // NOI18N
+        btnClientes.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/btnClientesSelected.png"))); // NOI18N
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
             }
         });
-        jPanel1.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 100, 90));
+        jPanel1.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 100, 90));
 
-        btnProductos5.setText("Ventas");
-        btnProductos5.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnReportes.png"))); // NOI18N
+        btnReportes.setContentAreaFilled(false);
+        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReportes.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnReportesHover.png"))); // NOI18N
+        btnReportes.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/btnReportesSelected.png"))); // NOI18N
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProductos5ActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
-        jPanel1.add(btnProductos5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 100, 90));
+        jPanel1.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 100, 90));
+
+        btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnPerfil2.png"))); // NOI18N
+        btnPerfil.setContentAreaFilled(false);
+        btnPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPerfil.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnPerfil2Hover.png"))); // NOI18N
+        btnPerfil.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/btnPerfil2Selected.png"))); // NOI18N
+        jPanel1.add(btnPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 100, 90));
+
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCerrarSesion.png"))); // NOI18N
+        btnCerrarSesion.setContentAreaFilled(false);
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCerrarSesionHover.png"))); // NOI18N
+        jPanel1.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 218, 40));
 
         javax.swing.GroupLayout contenidoJPanelLayout = new javax.swing.GroupLayout(contenidoJPanel);
         contenidoJPanel.setLayout(contenidoJPanelLayout);
@@ -226,30 +242,20 @@ public class frameVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        panelProductos jpProductos = new panelProductos();
-        mostrarPanel(jpProductos);
-        seleccionarBoton(true);
+
     }//GEN-LAST:event_btnProductosActionPerformed
 
-    private void btnProductos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductos1ActionPerformed
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProductos1ActionPerformed
+    }//GEN-LAST:event_btnVentasActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
-        plCliente pCliente = new plCliente();
-        pCliente.setSize(750, 560);
-        pCliente.setLocation(0, 0);
 
-        contenidoJPanel.removeAll();
-        contenidoJPanel.add(pCliente, BorderLayout.CENTER);
-        contenidoJPanel.revalidate();
-        contenidoJPanel.repaint();
     }//GEN-LAST:event_btnClientesActionPerformed
 
-    private void btnProductos5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductos5ActionPerformed
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProductos5ActionPerformed
+    }//GEN-LAST:event_btnReportesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,8 +298,8 @@ public class frameVendedor extends javax.swing.JFrame {
     private javax.swing.JButton btnClientes;
     public javax.swing.JButton btnPerfil;
     private javax.swing.JButton btnProductos;
-    private javax.swing.JButton btnProductos1;
-    private javax.swing.JButton btnProductos5;
+    private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnVentas;
     private javax.swing.JPanel contenidoJPanel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
