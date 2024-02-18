@@ -8,12 +8,12 @@ package Presentacion;
  *
  * @author KEVIN EP
  */
-public class panelProductos extends javax.swing.JPanel {
+public class plProductos extends javax.swing.JPanel {
 
     /**
      * Creates new form panelProductos
      */
-    public panelProductos() {
+    public plProductos() {
         initComponents();
     }
 

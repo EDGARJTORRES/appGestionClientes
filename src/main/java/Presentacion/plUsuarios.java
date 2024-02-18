@@ -3,7 +3,6 @@ package Presentacion;
 import BusinessObject.Empleado;
 import BusinessObject.RolUsuario;
 import BusinessObject.Usuario;
-import DataAccessObject.EmpleadoDAO;
 import DataAccessObject.UsuarioDAO;
 import TransferObject.EmpleadoDTO;
 import TransferObject.RolUsuarioDTO;
@@ -13,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author KEVIN EP
  */
-public class panelUsuarios extends javax.swing.JPanel {
+public class plUsuarios extends javax.swing.JPanel {
 
     private EmpleadoDTO dtoEmpleado;
     private UsuarioDTO dtoUsuario;
@@ -35,7 +35,7 @@ public class panelUsuarios extends javax.swing.JPanel {
     private panelFormularioEmpleado jpFormularioEmpleado;
     private panelFormularioUsuario jpFormularioUsuario;
     // Campos de Texto -  Formulario Empleado
-    private JTextField txtCodigo;
+    private JTextField txtCodigoEmpleado;
     private JTextField txtDni;
     private JTextField txtNombres;
     private JTextField txtApellidoPaterno;
@@ -48,7 +48,7 @@ public class panelUsuarios extends javax.swing.JPanel {
     JRadioButton rbActivo;
     JRadioButton rbInactivo;
 
-    public panelUsuarios() {
+    public plUsuarios() {
         initComponents();
         oEmpleado = new Empleado();
         oUsuario = new Usuario();
@@ -67,7 +67,7 @@ public class panelUsuarios extends javax.swing.JPanel {
         Controles.cargarFormularios(panelContenedorUsuario, jpFormularioUsuario, 360, 300);
 
         // Instancias de elementos de Formulario Empleados
-        txtCodigo = jpFormularioEmpleado.txtCodigoEmpleado;
+        txtCodigoEmpleado = jpFormularioEmpleado.txtCodigoEmpleado;
         txtDni = jpFormularioEmpleado.txtDniEmpleado;
         txtNombres = jpFormularioEmpleado.txtNombresEmpleado;
         txtApellidoPaterno = jpFormularioEmpleado.txtApellidoPaternoEmple;
@@ -86,9 +86,9 @@ public class panelUsuarios extends javax.swing.JPanel {
         rbActivo = jpFormularioUsuario.rbUsuarioActivo;
         rbInactivo = jpFormularioUsuario.rbUsuarioInactivo;
 
-        String[] tituloTablaEmpleado = {"COÓDIGO", "N° DNI", "NOMBRES", "APELLIDOS"};
+        String[] tituloTablaEmpleado = {"CÓDIGO", "N° DNI", "NOMBRES", "APELLIDOS"};
         modeloEmpleados.setColumnIdentifiers(tituloTablaEmpleado);
-        String[] tituloTablaUsuario = {"COÓDIGO", "NOMBRES Y APELLIDOS", "NOMBRE DE USUARIO", "ROL", "ESTADO"};
+        String[] tituloTablaUsuario = {"CÓDIGO", "NOMBRES Y APELLIDOS", "NOMBRE DE USUARIO", "ROL", "ESTADO"};
         modeloUsuarios.setColumnIdentifiers(tituloTablaUsuario);
 
         jpFormularioUsuario.btnCrearUsuario.addActionListener(new ActionListener() {
@@ -101,12 +101,16 @@ public class panelUsuarios extends javax.swing.JPanel {
 
     private void listarEmpleados() {
         Object[] datos = new Object[4];
+        UsuarioDAO daoUsuario;
         for (EmpleadoDTO empleado : oEmpleado.listar()) {
-            datos[0] = empleado.getCodEmpleado();
-            datos[1] = empleado.getDNIEmpleado();
-            datos[2] = empleado.getNombres();
-            datos[3] = empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno();
-            modeloEmpleados.addRow(datos);
+            daoUsuario = new UsuarioDAO();
+            if (!daoUsuario.buscarCodigoEmpleado(empleado.getCodEmpleado())) {
+                datos[0] = empleado.getCodEmpleado();
+                datos[1] = empleado.getDNIEmpleado();
+                datos[2] = empleado.getNombres();
+                datos[3] = empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno();
+                modeloEmpleados.addRow(datos);
+            }
         }
         tbEmpleados.setModel(modeloEmpleados);
     }
@@ -134,54 +138,28 @@ public class panelUsuarios extends javax.swing.JPanel {
         tbUsuarios.setModel(modeloUsuarios);
     }
 
-    private void btnCrearUsuarioActionPerformed(ActionEvent evt) {
-        if (tbEmpleados.getSelectedRowCount() > 0) {
-            if (jpFormularioUsuario.validarFormularioUsuario()) {
-                String userName = txtUserName.getText().trim();
-                String password = txtPassword.getText().trim();
-                int codRolUsuario = cbRolUsuario.getItemAt(cbRolUsuario.getSelectedIndex()).getCodRolUsuario();
-                String codEmpleado = jpFormularioUsuario.labelCodigoEmpleado.getText();
-                String estado = "";
-                if (rbActivo.isSelected()) {
-                    estado = "1";
-                } else if (rbInactivo.isSelected()) {
-                    estado = "0";
-                }
-
-                UsuarioDAO daoUsuario = new UsuarioDAO();
-
-                if (!daoUsuario.buscarCodigoEmpleado(codEmpleado)) {
-                    if (!daoUsuario.buscarUsuario(new UsuarioDTO(userName))) {
-                        JOptionPane.showMessageDialog(null, "El usuario no exsiste será registrado");
-//                Toolkit.getDefaultToolkit().beep();
-//                // Registramos el usuario generado
-//                String mensaje = oUsuario.agregar(userName, password, estado, codRolUsuario, codEmpleado);
-//                JOptionPane.showMessageDialog(null, mensaje, "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
-//
-//                cancelar();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "El Nombre de Usuario ya existe", "¡Error!", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "El empleado ya cuenta con un usuario", "¡Error!", JOptionPane.ERROR_MESSAGE);
-                }
-
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un empleado de la tabla empleados.", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }
-
     private void cancelar() {
-        txtCodigo.setText("");
-        txtDni.setText("");
-        txtNombres.setText("");
-        txtApellidoPaterno.setText("");
-        txtApellidoMaterno.setText("");
-        txtNumeroCelular.setText("");
+        jpFormularioEmpleado.cancelar();
         jpFormularioUsuario.cancelar();
 
+        tbEmpleados.setEnabled(true);
+        tbUsuarios.setEnabled(true);
+        tbEmpleados.clearSelection();
+        tbUsuarios.clearSelection();
+    }
+
+    private void llenarDatosEmpleado(String codEmpleado) {
+        dtoEmpleado = oEmpleado.buscar(codEmpleado);
+        txtCodigoEmpleado.setText(dtoEmpleado.getCodEmpleado());
+        txtDni.setText(dtoEmpleado.getDNIEmpleado());
+        txtNombres.setText(dtoEmpleado.getNombres());
+        txtApellidoPaterno.setText(dtoEmpleado.getApellidoPaterno());
+        txtApellidoMaterno.setText(dtoEmpleado.getApellidoMaterno());
+        txtNumeroCelular.setText(dtoEmpleado.getCelular());
+
+        String[] nombresArray = dtoEmpleado.getNombres().split(" ");
+        jpFormularioUsuario.labelCodigoEmpleado.setText(dtoEmpleado.getCodEmpleado());
+        jpFormularioUsuario.labelNombreApellidoEmpleado.setText(nombresArray[0] + " " + dtoEmpleado.getApellidoPaterno() + " " + dtoEmpleado.getApellidoMaterno());
     }
 
     /**
@@ -214,7 +192,6 @@ public class panelUsuarios extends javax.swing.JPanel {
         panelContenedorUsuario = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnGuardarEmpleado = new javax.swing.JButton();
         btnEditarrEmpleado = new javax.swing.JButton();
         btnEliminarEmpleado = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -316,6 +293,11 @@ public class panelUsuarios extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbUsuarios);
 
         jLabel11.setText("Buscar por");
@@ -371,23 +353,27 @@ public class panelUsuarios extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnGuardarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnGuardar.png"))); // NOI18N
-        btnGuardarEmpleado.setContentAreaFilled(false);
-        btnGuardarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarEmpleado.setName("btnGuardar"); // NOI18N
-        btnGuardarEmpleado.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnGuardarHover.png"))); // NOI18N
-
         btnEditarrEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnEditarUsuario.png"))); // NOI18N
         btnEditarrEmpleado.setContentAreaFilled(false);
         btnEditarrEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarrEmpleado.setName("btnActualizar"); // NOI18N
         btnEditarrEmpleado.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnEditarUsuarioHover.png"))); // NOI18N
+        btnEditarrEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarrEmpleadoActionPerformed(evt);
+            }
+        });
 
         btnEliminarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnELiminarUsuario.png"))); // NOI18N
         btnEliminarEmpleado.setContentAreaFilled(false);
         btnEliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarEmpleado.setName("btnEliminar"); // NOI18N
         btnEliminarEmpleado.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnELiminarUsuarioHover.png"))); // NOI18N
+        btnEliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEmpleadoActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnCancelarHover.png"))); // NOI18N
         btnCancelar.setContentAreaFilled(false);
@@ -406,18 +392,15 @@ public class panelUsuarios extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEditarrEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditarrEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                     .addComponent(btnEliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuardarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGuardarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(55, 55, 55)
                 .addComponent(btnEditarrEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,10 +409,10 @@ public class panelUsuarios extends javax.swing.JPanel {
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
-        btnGenerarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btnGenerarUsuario.png"))); // NOI18N
+        btnGenerarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnGenerarUsuario.png"))); // NOI18N
         btnGenerarUsuario.setContentAreaFilled(false);
         btnGenerarUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGenerarUsuario.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/btnGenerarUsuarioHover.png"))); // NOI18N
+        btnGenerarUsuario.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnGenerarUsuarioHover.png"))); // NOI18N
         btnGenerarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarUsuarioActionPerformed(evt);
@@ -448,9 +431,9 @@ public class panelUsuarios extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelContenedorEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGenerarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGenerarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelContenedorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -490,43 +473,187 @@ public class panelUsuarios extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMouseClicked
-        String codEmpleado = (String) tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 0);
+    private void btnCrearUsuarioActionPerformed(ActionEvent evt) {
+        if (tbUsuarios.getSelectedRowCount() > 0) {
+            JOptionPane.showMessageDialog(null, "Estas en modo edición. \nPresione Cancelar si deseas realizar esta acción y \n posteriormente seleccionar un empleado", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (tbEmpleados.getSelectedRowCount() > 0) {
+            if (jpFormularioUsuario.validarFormularioUsuario()) {
+                String userName = txtUserName.getText().trim();
+                String password = txtPassword.getText().trim();
+                int codRolUsuario = cbRolUsuario.getItemAt(cbRolUsuario.getSelectedIndex()).getCodRolUsuario();
+                String codEmpleado = txtCodigoEmpleado.getText();
+                String estado = "";
+                if (rbActivo.isSelected()) {
+                    estado = "1";
+                } else if (rbInactivo.isSelected()) {
+                    estado = "0";
+                }
 
-        dtoEmpleado = oEmpleado.buscar(codEmpleado);
-        txtCodigo.setText(dtoEmpleado.getCodEmpleado());
-        txtDni.setText(dtoEmpleado.getDNIEmpleado());
-        txtNombres.setText(dtoEmpleado.getNombres());
-        txtApellidoPaterno.setText(dtoEmpleado.getApellidoPaterno());
-        txtApellidoMaterno.setText(dtoEmpleado.getApellidoMaterno());
-        txtNumeroCelular.setText(dtoEmpleado.getCelular());
+                UsuarioDAO daoUsuario = new UsuarioDAO();
+
+                if (!daoUsuario.buscarCodigoEmpleado(codEmpleado)) {
+                    if (!daoUsuario.buscarUsuario(new UsuarioDTO(userName))) {
+                        
+                        Toolkit.getDefaultToolkit().beep();
+                        // Registramos el usuario generado
+                        String mensaje = oUsuario.agregar(userName, password, estado, codRolUsuario, codEmpleado);
+                        JOptionPane.showMessageDialog(null, mensaje, "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                        modeloEmpleados.setRowCount(0);
+                        listarEmpleados();
+                        modeloUsuarios.setRowCount(0);
+                        listarUsuarios();
+                        cancelar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El Nombre de Usuario ya existe", "¡Error!", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "El empleado ya cuenta con un usuario", "¡Error!", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un empleado de la tabla empleados.", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    
+    private void tbEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpleadosMouseClicked
+        if (!tbEmpleados.isEnabled()) {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+        }
+        String codEmpleado = (String) tbEmpleados.getValueAt(tbEmpleados.getSelectedRow(), 0);
+        llenarDatosEmpleado(codEmpleado);
 
         jpFormularioUsuario.cancelar();
+        tbUsuarios.clearSelection();
+        tbUsuarios.setEnabled(false);
     }//GEN-LAST:event_tbEmpleadosMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-//        Toolkit.getDefaultToolkit().beep();
-//        cancelar();
+        Toolkit.getDefaultToolkit().beep();
+        cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGenerarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarUsuarioActionPerformed
-        if (tbEmpleados.getSelectedRowCount() > 0) {
-            String codigoEmpleado = txtCodigo.getText();
-            String nombres = txtNombres.getText();
-            String apellidoPat = txtApellidoPaterno.getText();
-
-            String[] nombresArray = nombres.split(" ");
-            jpFormularioUsuario.labelCodigoEmpleado.setText(codigoEmpleado);
-            jpFormularioUsuario.labelNombreApellidoEmpleado.setText("- " + nombresArray[0] + " " + apellidoPat);
-
+        if (tbUsuarios.getSelectedRowCount() > 0) {
+            JOptionPane.showMessageDialog(null, "Estas en modo edición. \nPresione Cancelar si deseas realizar esta acción y \n posteriormente seleccionar un empleado", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (tbEmpleados.getSelectedRowCount() > 0 || tbUsuarios.getSelectedRowCount() > 0) {
+            String codigoEmpleado = txtCodigoEmpleado.getText();
+            
             txtUserName.setText(txtDni.getText() + codigoEmpleado.substring(1, 4));
             txtPassword.setText(txtDni.getText());
             rbActivo.setSelected(true);
             rbInactivo.setEnabled(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un empleado de la tabla empleados.", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un empleado de la tabla Empleados.", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGenerarUsuarioActionPerformed
+
+    private void btnEditarrEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarrEmpleadoActionPerformed
+        if (tbEmpleados.getSelectedRowCount() > 0) {
+            JOptionPane.showMessageDialog(null, "No puedes Editar, estas generando un Usuario.\nSi dedeas realizar esta acción presione en Cancelar", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (tbUsuarios.getSelectedRowCount() > 0) {
+            String userName = txtUserName.getText().trim();
+            String password = txtPassword.getText().trim();
+            int codRolUsuario = cbRolUsuario.getItemAt(cbRolUsuario.getSelectedIndex()).getCodRolUsuario();
+            String codEmpleado = txtCodigoEmpleado.getText();
+            String estado = "";
+            if (rbActivo.isSelected()) {
+                estado = "1";
+            } else if (rbInactivo.isSelected()) {
+                estado = "0";
+            }
+
+            UsuarioDAO daoUsuario = new UsuarioDAO();
+            if (!daoUsuario.buscarUsuario(new UsuarioDTO(userName))) {
+                Toolkit.getDefaultToolkit().beep();
+                // Actualizamos el usuario 
+                String mensaje = oUsuario.actualizar(userName, password, estado, codRolUsuario, codEmpleado);
+                JOptionPane.showMessageDialog(null, mensaje, "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                modeloUsuarios.setRowCount(0);
+                listarUsuarios();
+                cancelar();
+            } else {
+                JOptionPane.showMessageDialog(null, "El Nombre de Usuario ya existe", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un registro de la tabla Usuarios.", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarrEmpleadoActionPerformed
+
+    private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
+        if (tbEmpleados.getSelectedRowCount() > 0) {
+            JOptionPane.showMessageDialog(null, "No puedes Editar, estas generando un Usuario.\nSi dedeas realizar esta acción presione en Cancelar", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (tbUsuarios.getSelectedRowCount() > 0) {
+            UsuarioDAO daoUsuario = new UsuarioDAO();
+            JLabel labelMensaje = new JLabel();
+            String codigoEmpleado = txtCodigoEmpleado.getText();
+            String userName = txtUserName.getText();
+            //if (!objeto.buscarCodigoObjeto(codigoEmpleado)) { // verifica si el usario esta relacionada con otra entidad
+                dtoEmpleado = oEmpleado.buscar(codigoEmpleado);
+
+                String mensajeJOptionPane = "<html>Estás seguro de Eliminar a este Usuario: <b>" + userName + "</b></html>";
+                labelMensaje.setText(mensajeJOptionPane);
+
+                int opcion = JOptionPane.showConfirmDialog(null, mensajeJOptionPane, "Confirmación de Eliminación", JOptionPane.YES_NO_OPTION);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    Toolkit.getDefaultToolkit().beep();
+                    String mensaje = oUsuario.eliminar(codigoEmpleado);
+                    JOptionPane.showMessageDialog(null, mensaje, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
+                modeloUsuarios.setRowCount(0);
+                listarUsuarios();
+                cancelar();
+
+            //} else {
+              //  JOptionPane.showMessageDialog(null, "No se puede eliminar: \nEl empleado cuenta con un usuario.", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+            //}
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un registro de la tabla Usuarios.", "¡Error! Acción Inválida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarEmpleadoActionPerformed
+
+    private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
+        if (!tbUsuarios.isEnabled()) {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+        }
+        
+        tbEmpleados.clearSelection();
+        tbEmpleados.setEnabled(false);
+        jpFormularioUsuario.cancelar();
+
+        String codEmpleado = (String) tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 0);
+        dtoUsuario = oUsuario.buscarCodigoEmpleado(codEmpleado);
+
+        String userName = dtoUsuario.getUserName();
+        String password = dtoUsuario.getPassword();
+        String estado = dtoUsuario.getEstado();
+        int codRolUsuario = dtoUsuario.getCodRolUsuario();
+        llenarDatosEmpleado(codEmpleado);
+
+        txtUserName.setText(userName);
+        txtPassword.setText(password);
+        cbRolUsuario.setSelectedItem(new RolUsuarioDTO(codRolUsuario));
+        switch (estado) {
+            case "1" -> {
+                rbActivo.setSelected(true);
+            }
+            case "0" -> {
+                rbInactivo.setSelected(true);
+            }
+        }
+
+    }//GEN-LAST:event_tbUsuariosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -534,7 +661,6 @@ public class panelUsuarios extends javax.swing.JPanel {
     private javax.swing.JButton btnEditarrEmpleado;
     private javax.swing.JButton btnEliminarEmpleado;
     private javax.swing.JButton btnGenerarUsuario;
-    private javax.swing.JButton btnGuardarEmpleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

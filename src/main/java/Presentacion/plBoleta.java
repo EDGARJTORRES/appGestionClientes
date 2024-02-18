@@ -304,7 +304,7 @@ public class plBoleta extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        panelProductos panelProduct = new panelProductos();
+        plProductos panelProduct = new plProductos();
         panelProduct.isVisible();
     }//GEN-LAST:event_jButton1ActionPerformed
 
