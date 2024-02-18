@@ -23,6 +23,11 @@ Presentacion\plUsuarios$1.class
 Presentacion\plEmpleados$6.class
 Presentacion\plVenta.class
 TransferObject\UsuarioDTO.class
+<<<<<<< HEAD
+=======
+Presentacion\plCliente$14.class
+Presentacion\panelEmpleado$1.class
+>>>>>>> 0c028452860399f97010ffd3be56fa0e0ff7a9a5
 Presentacion\panelFormularioEmpleado$3.class
 Swing\Containers\PanelShadow.class
 DataAccessObject\ICrud.class
