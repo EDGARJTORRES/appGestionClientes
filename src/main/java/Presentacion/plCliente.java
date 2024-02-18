@@ -42,8 +42,8 @@ public class plCliente extends javax.swing.JPanel {
         txtRUC.setText("");
         txtRazonSocial.setText("");
         txtNombre.setText("");
-        txtCelular.setText("");
         txtDireccion.setText("");
+        txtCelular.setText("");
         txtDistrito.setText("");
         txtProvincia.setText("");
 
@@ -55,8 +55,8 @@ public class plCliente extends javax.swing.JPanel {
         txtRUC.setEnabled(false);
         txtRazonSocial.setEnabled(false);
         txtNombre.setEnabled(false);
-        txtCelular.setEnabled(false);
         txtDireccion.setEnabled(false);
+        txtCelular.setEnabled(false);
         txtDistrito.setEnabled(false);
         txtProvincia.setEnabled(false);
     }
@@ -65,8 +65,8 @@ public class plCliente extends javax.swing.JPanel {
         txtRUC.setEnabled(true);
         txtRazonSocial.setEnabled(true);
         txtNombre.setEnabled(true);
-        txtCelular.setEnabled(true);
         txtDireccion.setEnabled(true);
+        txtCelular.setEnabled(true);
         txtDistrito.setEnabled(true);
         txtProvincia.setEnabled(true);
     }
@@ -132,13 +132,13 @@ public class plCliente extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtCelular = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtRazonSocial = new javax.swing.JTextField();
         txtRUC = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtDistrito = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -221,9 +221,9 @@ public class plCliente extends javax.swing.JPanel {
 
         jLabel6.setText("DIRECCIÓN FISCAL :");
 
-        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCelularKeyTyped(evt);
+                txtDireccionKeyTyped(evt);
             }
         });
 
@@ -246,6 +246,12 @@ public class plCliente extends javax.swing.JPanel {
         });
 
         jLabel7.setText("CELULAR :");
+
+        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCelularKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("DISTRITO :");
 
@@ -366,7 +372,7 @@ public class plCliente extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(322, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -387,11 +393,11 @@ public class plCliente extends javax.swing.JPanel {
                             .addComponent(jLabel9))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(204, 256, Short.MAX_VALUE)
+                            .addComponent(txtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
@@ -405,14 +411,14 @@ public class plCliente extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(btnNuevo))
+                            .addComponent(btnNuevo)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(btnGuardar))
+                            .addComponent(btnGuardar)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,13 +530,13 @@ public class plCliente extends javax.swing.JPanel {
         String ruc = txtRUC.getText();
         String apellido = txtRazonSocial.getText();
         String nombre = txtNombre.getText();
-        String celular = txtCelular.getText();
-        String direccion = txtDireccion.getText();
+        String celular = txtDireccion.getText();
+        String direccion = txtCelular.getText();
         String distrito = txtDistrito.getText();
         String provincia = txtProvincia.getText();
         if (!(ruc.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || celular.isEmpty() || direccion.isEmpty() || distrito.isEmpty() || provincia.isEmpty())) {
             String mensaje = cliente.agregar(txtCodigo.getText(), txtRUC.getText(), txtRazonSocial.getText(), txtNombre.getText(),
-                    txtCelular.getText(), txtDireccion.getText(), txtDistrito.getText(), txtProvincia.getText());
+                    txtDireccion.getText(), txtCelular.getText(), txtDistrito.getText(), txtProvincia.getText());
             JOptionPane.showMessageDialog(null, mensaje);
             limpiarTabla();
             listar();
@@ -582,7 +588,7 @@ public class plCliente extends javax.swing.JPanel {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
-        if (txtRUC.getText().length() >= 10) {
+        if (txtRUC.getText().length() >= 11) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
             if ((!txtRUC.getText().startsWith("1")) && (!txtRUC.getText().startsWith("2"))) {
@@ -620,21 +626,10 @@ public class plCliente extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
-    private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
         // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if ((!(Character.isDigit(c)) && (!(c == KeyEvent.VK_BACK_SPACE)))) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
-        if (txtCelular.getText().length() >= 9) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-            if (!txtCelular.getText().startsWith("9")) {
-                JOptionPane.showMessageDialog(null, "N° Celular no válido", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_txtCelularKeyTyped
+        
+    }//GEN-LAST:event_txtDireccionKeyTyped
 
     private void txtDistritoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDistritoKeyTyped
         // TODO add your handling code here:
@@ -712,8 +707,8 @@ public class plCliente extends javax.swing.JPanel {
             txtRUC.setText(tbClientes.getValueAt(fila, 1).toString());
             txtRazonSocial.setText(tbClientes.getValueAt(fila, 2).toString());
             txtNombre.setText(tbClientes.getValueAt(fila, 3).toString());
-            txtCelular.setText(tbClientes.getValueAt(fila, 4).toString());
-            txtDireccion.setText(tbClientes.getValueAt(fila, 5).toString());
+            txtDireccion.setText(tbClientes.getValueAt(fila, 4).toString());
+            txtCelular.setText(tbClientes.getValueAt(fila, 5).toString());
             txtDistrito.setText(tbClientes.getValueAt(fila, 6).toString());
             txtProvincia.setText(tbClientes.getValueAt(fila, 7).toString());
 
@@ -757,13 +752,13 @@ public class plCliente extends javax.swing.JPanel {
                     String ruc = txtRUC.getText();
                     String apellido = txtRazonSocial.getText();
                     String nombre = txtNombre.getText();
-                    String celular = txtCelular.getText();
-                    String direccion = txtDireccion.getText();
+                    String celular = txtDireccion.getText();
+                    String direccion = txtCelular.getText();
                     String distrito = txtDistrito.getText();
                     String provincia = txtProvincia.getText();
                     if (!(ruc.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || celular.isEmpty() || direccion.isEmpty() || distrito.isEmpty() || provincia.isEmpty())) {
-                        mensaje = cliente.actualizar(codcliente, txtRUC.getText(), txtRazonSocial.getText(), txtNombre.getText(), txtCelular.getText(),
-                                txtDireccion.getText(), txtDistrito.getText(), txtProvincia.getText());
+                        mensaje = cliente.actualizar(codcliente, txtRUC.getText(), txtRazonSocial.getText(), txtNombre.getText(), txtDireccion.getText(),
+                                txtCelular.getText(), txtDistrito.getText(), txtProvincia.getText());
                         JOptionPane.showMessageDialog(null, mensaje);
                         btnActualizar.setText("EDITAR");
 
@@ -804,6 +799,22 @@ public class plCliente extends javax.swing.JPanel {
         //        Toolkit.getDefaultToolkit().beep();
         //        cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((!(Character.isDigit(c)) && (!(c == KeyEvent.VK_BACK_SPACE)))) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+        if (txtCelular.getText().length() >= 9) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            if (!txtCelular.getText().startsWith("9")) {
+                JOptionPane.showMessageDialog(null, "N° Celular no válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_txtCelularKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

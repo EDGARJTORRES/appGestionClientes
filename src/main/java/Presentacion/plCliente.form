@@ -165,7 +165,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="322" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -190,12 +190,12 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtCelular" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="txtDireccion" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                   <Component id="txtDistrito" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                   <Component id="txtProvincia" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="txtCelular" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="txtDireccion" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="204" pref="256" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="btnEliminar" pref="100" max="32767" attributes="0"/>
                                   <Component id="btnActualizar" pref="100" max="32767" attributes="0"/>
@@ -214,15 +214,15 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -292,9 +292,9 @@
                 <Property name="text" type="java.lang.String" value="DIRECCI&#xd3;N FISCAL :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtCelular">
+            <Component class="javax.swing.JTextField" name="txtDireccion">
               <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCelularKeyTyped"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDireccionKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNombre">
@@ -319,7 +319,10 @@
                 <Property name="text" type="java.lang.String" value="CELULAR :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtDireccion">
+            <Component class="javax.swing.JTextField" name="txtCelular">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCelularKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>

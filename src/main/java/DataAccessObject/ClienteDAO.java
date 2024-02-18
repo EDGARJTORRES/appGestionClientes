@@ -31,8 +31,8 @@ public class ClienteDAO implements ICrud<ClienteDTO> {
         int r = 0;
         
         try {
-            ps = conexion.conectar().prepareStatement("insert into cliente (codcliente, ruccliente, apellidocliente, " +
-                    "nombrecliente, celularcliente, direccioncliente, distritocliente, provinciacliente) values (?,?,?,?,?,?,?,?)");
+            ps = conexion.conectar().prepareStatement("insert into cliente (codcliente, ruccliente, razonsocial, " +
+                    "nombrecomercial, direccionfiscal, celularcliente, distritocliente, provinciacliente) values (?,?,?,?,?,?,?,?)");
             ps.setString(1, "C"+t.getRuc().substring(Math.max(0, t.getRuc().length() - 3))+t.getApellido().substring(0,1).toUpperCase()+t.getNombre().substring(0,1));
             ps.setString(2, t.getRuc());
             ps.setString(3, t.getApellido());
@@ -58,8 +58,8 @@ public class ClienteDAO implements ICrud<ClienteDTO> {
         int r = 0;
         
         try {
-            ps = conexion.conectar().prepareStatement("update cliente set ruccliente=?,apellidocliente=?,nombrecliente=?,celularcliente=?, " + 
-                    "direccioncliente=?, distritocliente=?, provinciacliente=? where codcliente=?");
+            ps = conexion.conectar().prepareStatement("update cliente set ruccliente=?,razonsocial=?,nombrecomercial=?,direccionfiscal=?, " + 
+                    "celularcliente=?, distritocliente=?, provinciacliente=? where codcliente=?");
             
             //ps.setString(1, t.getCodCliente());
             ps.setString(1, t.getRuc());
