@@ -276,7 +276,7 @@ public class frameAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        panelProductos jpProductos = new panelProductos();
+        plProductos jpProductos = new plProductos();
         mostrarPanel(jpProductos);
         seleccionarBoton(false, false, true, false, false, false, false);
     }//GEN-LAST:event_btnProductosActionPerformed
@@ -286,13 +286,13 @@ public class frameAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        panelUsuarios jpUsuarios = new panelUsuarios();
+        plUsuarios jpUsuarios = new plUsuarios();
         mostrarPanel(jpUsuarios);
         seleccionarBoton(false, true, false, false, false, false, false);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        panelEmpleado jpEmpleado = new panelEmpleado();
+        plEmpleados jpEmpleado = new plEmpleados();
         mostrarPanel(jpEmpleado);
         seleccionarBoton(true, false, false, false, false, false, false);
     }//GEN-LAST:event_btnEmpleadosActionPerformed

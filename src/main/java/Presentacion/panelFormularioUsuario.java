@@ -18,7 +18,7 @@ public class panelFormularioUsuario extends javax.swing.JPanel {
         oRolUsuario = new RolUsuario();
         initComponents();
         llenarComboBox();
-
+        labelCodigoEmpleado.setVisible(false);
     }
 
     private void llenarComboBox() {
@@ -36,7 +36,7 @@ public class panelFormularioUsuario extends javax.swing.JPanel {
         if (cbTipoUsuario.getSelectedIndex() != 0) {
             if (!userName.isEmpty()) {
                 if (!password.isEmpty()) {
-                    if (!rbUsuarioActivo.isSelected() || !rbUsuarioInactivo.isSelected()) {
+                    if (rbUsuarioActivo.isSelected() || rbUsuarioInactivo.isSelected()) {
                         return true;
                     } else {
                         JOptionPane.showMessageDialog(null, "Dedes seleccionar un Estado", "¡Error! Datos Incompletos", JOptionPane.ERROR_MESSAGE);
@@ -52,15 +52,18 @@ public class panelFormularioUsuario extends javax.swing.JPanel {
         }
         return false;
     }
-    
+
     public void cancelar() {
         cbTipoUsuario.setSelectedIndex(0);
         txtNameUser.setText("");
         txtPassword.setText("");
-        rbUsuarioActivo.setSelected(false);
-        rbUsuarioInactivo.setSelected(false);
-        labelCodigoEmpleado.setText("");
-        labelNombreApellidoEmpleado.setText("");
+
+        rbUsuarioInactivo.setEnabled(true);
+        if (rbUsuarioActivo.isSelected()) {
+            rbUsuarioActivo.setSelected(false);
+        } else if (rbUsuarioInactivo.isSelected()) {
+            rbUsuarioInactivo.setSelected(false);
+        }
     }
 
     /**
@@ -89,113 +92,59 @@ public class panelFormularioUsuario extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(137, 176, 212), 2, true), "DATOS DEL USUARIO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(30, 64, 175))); // NOI18N
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("para: ");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 36, 30, 20));
 
         labelNombreApellidoEmpleado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelNombreApellidoEmpleado.setForeground(new java.awt.Color(0, 102, 102));
-        labelNombreApellidoEmpleado.setText("- Nombre Apellido");
+        labelNombreApellidoEmpleado.setText("Nombre Apellido");
+        add(labelNombreApellidoEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 200, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Rol de Usuario");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 111, 30));
 
         cbTipoUsuario.setToolTipText("");
+        add(cbTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 70, 180, 32));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Nombre de Usuario:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 115, -1, 30));
 
         txtNameUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        add(txtNameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 114, 180, 30));
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 157, 180, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Contraseña:");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 158, 111, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setText("Estado:");
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 200, 111, 30));
 
         buttonGroupUsuario.add(rbUsuarioActivo);
         rbUsuarioActivo.setText("Activo");
+        add(rbUsuarioActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 205, -1, -1));
 
         buttonGroupUsuario.add(rbUsuarioInactivo);
         rbUsuarioInactivo.setText("Inactivo");
+        add(rbUsuarioInactivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 205, -1, -1));
 
         btnCrearUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnCrearUsuario.png"))); // NOI18N
         btnCrearUsuario.setContentAreaFilled(false);
         btnCrearUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrearUsuario.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botones/btnCrearUsuarioHover.png"))); // NOI18N
+        add(btnCrearUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 236, 180, 44));
 
         labelCodigoEmpleado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelCodigoEmpleado.setForeground(new java.awt.Color(0, 51, 51));
         labelCodigoEmpleado.setText("CODIGO");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelCodigoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelNombreApellidoEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rbUsuarioActivo)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbUsuarioInactivo))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                .addComponent(txtNameUser, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(btnCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(labelNombreApellidoEmpleado)
-                    .addComponent(labelCodigoEmpleado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbUsuarioActivo)
-                    .addComponent(rbUsuarioInactivo)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        add(labelCodigoEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 60, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 

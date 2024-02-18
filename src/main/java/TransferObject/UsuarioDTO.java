@@ -29,15 +29,6 @@ public class UsuarioDTO {
         this.Password = Password;
     }
 
-    public UsuarioDTO(int CodUsuario, String UserName, String Password, String Estado, int CodRolUsuario, String CodEmpleado) {
-        this.CodUsuario = CodUsuario;
-        this.UserName = UserName;
-        this.Password = Password;
-        this.Estado = Estado;
-        this.CodRolUsuario = CodRolUsuario;
-        this.CodEmpleado = CodEmpleado;
-    }
-
     public UsuarioDTO(String UserName, String Password, String Estado, int CodRolUsuario, String CodEmpleado) {
         this.UserName = UserName;
         this.Password = Password;
@@ -93,6 +84,11 @@ public class UsuarioDTO {
 
     public void setCodEmpleado(String CodEmpleado) {
         this.CodEmpleado = CodEmpleado;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioDTO{" + "CodUsuario=" + CodUsuario + ", UserName=" + UserName + ", Password=" + Password + ", Estado=" + Estado + ", CodRolUsuario=" + CodRolUsuario + ", CodEmpleado=" + CodEmpleado + '}';
     }
 
 }

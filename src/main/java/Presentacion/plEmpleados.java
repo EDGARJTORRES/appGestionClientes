@@ -7,15 +7,12 @@ import DataAccessObject.UsuarioDAO;
 import TransferObject.EmpleadoDTO;
 import TransferObject.RolUsuarioDTO;
 import Utilities.Controles;
-import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author KEVIN EP
  */
-public class panelEmpleado extends javax.swing.JPanel {
+public class plEmpleados extends javax.swing.JPanel {
 
     private EmpleadoDTO dtoEmpleado;
     private EmpleadoDAO daoEmpleado;
@@ -47,7 +44,7 @@ public class panelEmpleado extends javax.swing.JPanel {
 
     int opcionCrearUsuario = JOptionPane.NO_OPTION;
 
-    public panelEmpleado() {
+    public plEmpleados() {
         initComponents();
         dtoEmpleado = new EmpleadoDTO();
         daoEmpleado = new EmpleadoDAO();
@@ -91,10 +88,10 @@ public class panelEmpleado extends javax.swing.JPanel {
         modeloEmpleados.setColumnIdentifiers(tituloTabla);
     }
 
-    private void generarUsuario(String codigoEmpleado, String nombres, String apellidoPat) {
+    private void generarUsuario(String codigoEmpleado, String nombres, String apellidoPat, String apellidoMat) {
         String[] nombresArray = nombres.split(" ");
         jpFormularioUsuario.labelCodigoEmpleado.setText(codigoEmpleado);
-        jpFormularioUsuario.labelNombreApellidoEmpleado.setText("- " + nombresArray[0] + " " + apellidoPat);
+        jpFormularioUsuario.labelNombreApellidoEmpleado.setText(nombresArray[0] + " " + apellidoPat + " " + apellidoMat);
 
         txtUserName.setText(txtDni.getText() + codigoEmpleado.substring(1, 4));
         txtPassword.setText(txtDni.getText());
@@ -494,7 +491,7 @@ public class panelEmpleado extends javax.swing.JPanel {
                         if (opcionCrearUsuario == JOptionPane.YES_OPTION) {
                             panelContenedorUsuario.setVisible(true);
                             tbEmpleados.setEnabled(false);
-                            generarUsuario(codigoEmpleado, nombres, apellidoPat);
+                            generarUsuario(codigoEmpleado, nombres, apellidoPat, apellidoMat);
 
                         } else {
                             cancelar();

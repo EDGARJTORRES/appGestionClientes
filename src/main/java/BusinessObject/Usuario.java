@@ -53,6 +53,16 @@ public class Usuario {
         return null;
     }
     
+    public UsuarioDTO buscarCodigoEmpleado(String codEmpleado) {
+        UsuarioDTO dtoUsuario = new UsuarioDTO();
+        dtoUsuario.setCodEmpleado(codEmpleado);
+        usuarioDTO = usuarioDAO.buscarCodigoEmpleado(dtoUsuario);
+        if (usuarioDTO != null) {
+            return usuarioDTO;
+        }
+        return null;
+    }
+    
     // CRUD
     public String agregar(String userName, String password, String estado, int codRolUsuario, String codEmpleado){
         String mensaje;
@@ -62,6 +72,27 @@ public class Usuario {
             mensaje = "Usuario Generado Correctamente";
         else
             mensaje = "Registro no guardado";
+        return mensaje;
+    }
+    
+    public String actualizar(String userName, String password, String estado, int codRolUsuario, String codEmpleado) {
+        String mensaje; 
+        usuarioDTO = new UsuarioDTO(userName, password, estado, codRolUsuario, codEmpleado);
+        if (usuarioDAO.actualizar(usuarioDTO)) 
+            mensaje = "Se actualizó correctamente el Usuario";
+        else
+            mensaje = "Error, no se pudo actualizar";
+        return mensaje;
+    }
+    
+    public String eliminar(String codEmpleado){
+        String mensaje;
+        usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setCodEmpleado(codEmpleado);
+        if (usuarioDAO.eliminar(usuarioDTO))
+            mensaje = "Empleado eliminado con éxito";
+        else
+            mensaje = "Registro no Eliminado";
         return mensaje;
     }
 

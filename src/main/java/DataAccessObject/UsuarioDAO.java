@@ -20,7 +20,8 @@ public class UsuarioDAO implements ICrud<UsuarioDTO> {
     Conexion oConexion;
 
     private final String INSERT = "INSERT INTO Usuario (UserName, Password, Estado, CodRolUsuario, CodEmpleado) VALUES (?,?,?,?,?)";
-    
+    private final String UPDATE = "UPDATE Usuario SET UserName=?, Password=?, Estado=?, CodRolUsuario=?, CodEmpleado=? WHERE CodEmpleado = ?";
+    private final String DELETE = "DELETE FROM Usuario WHERE CodEmpleado = ?";
     private final String SELECT_ONE = "SELECT * FROM Usuario WHERE CodUsuario = ?";
     private final String SELECT_ALL = "SELECT * FROM Usuario";
 
@@ -42,6 +43,7 @@ public class UsuarioDAO implements ICrud<UsuarioDTO> {
             return respuesta == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println(e);
             return false;
         } finally {
             oConexion.desconectar();
@@ -50,12 +52,42 @@ public class UsuarioDAO implements ICrud<UsuarioDTO> {
 
     @Override
     public boolean actualizar(UsuarioDTO dtoUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int respuesta = 0;
+        try {
+            ps = oConexion.conectar().prepareStatement(UPDATE);
+            ps.setString(1, dtoUsuario.getUserName());
+            ps.setString(2, dtoUsuario.getPassword());
+            ps.setString(3, dtoUsuario.getEstado());
+            ps.setInt(4, dtoUsuario.getCodRolUsuario());
+            ps.setString(5, dtoUsuario.getCodEmpleado());
+            ps.setString(6, dtoUsuario.getCodEmpleado());
+            respuesta = ps.executeUpdate();
+            return  respuesta == 1;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        } finally {
+            oConexion.desconectar();
+        }
     }
 
     @Override
     public boolean eliminar(UsuarioDTO dtoUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int r = 0;
+        
+        try {
+            ps = oConexion.conectar().prepareStatement(DELETE);
+            ps.setString(1, dtoUsuario.getCodEmpleado());
+            r = ps.executeUpdate();
+            return r == 1;
+        }
+        catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        finally {
+            oConexion.desconectar();
+        }
     }
 
     @Override
@@ -214,5 +246,35 @@ public class UsuarioDAO implements ICrud<UsuarioDTO> {
             oConexion.desconectar();
         }
         return false;
+    }
+    
+    public UsuarioDTO buscarCodigoEmpleado(UsuarioDTO dtoUsuario) {
+        boolean encontrado = false;
+        try {
+            ps = oConexion.conectar().prepareStatement("SELECT * FROM Usuario WHERE CodEmpleado = ?");
+            ps.setString(1, dtoUsuario.getCodEmpleado());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dtoUsuario.setCodUsuario(rs.getInt(1));
+                dtoUsuario.setUserName(rs.getString(2));
+                dtoUsuario.setPassword(rs.getString(3));
+                dtoUsuario.setEstado(rs.getString(4));
+                dtoUsuario.setCodRolUsuario(rs.getInt(5));
+                dtoUsuario.setCodEmpleado(rs.getString(6));
+                encontrado = true;
+            }
+
+            if (encontrado) {
+                return dtoUsuario;
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            return null;
+        } finally {
+            oConexion.desconectar();
+        }
     }
 }
